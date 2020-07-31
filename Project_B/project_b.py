@@ -4,7 +4,6 @@ import time
 
 raw_data = pd.read_csv('./订单表.csv', encoding='GBK')
 raw_products = pd.read_csv('./产品表.csv', encoding='GBK')
-# print(customer_data)
 
 
 def data_process(raw_data):
@@ -22,11 +21,12 @@ def data_process(raw_data):
             id_pro = str(item) + '-' + str(products[item]).replace("['", "").replace("']", "").strip()
             temp_id.append(id_pro)
         temp.append(temp_id)
+    # 使用Apriori算法得出频繁项集和关联规则
     item_sets, rules = apriori(temp, min_support=0.02, min_confidence=0.4)
     end_time = time.time()
     cost_time = end_time - start_time
-    print("频繁项集1：", item_sets)
-    print("关联规则1：", rules)
+    print("频繁项集：", item_sets)
+    print("关联规则：", rules)
     print("计算耗时%.2f 秒" % cost_time)
 
 
